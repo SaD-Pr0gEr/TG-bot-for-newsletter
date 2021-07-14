@@ -1,19 +1,23 @@
-version: 3.9
+version: "3"
 services:
   api:
     depends_on:
       - db
-    image:
+    image: newsletter-aiogram_api
     build:
       context: .
       dockerfile: Dockerfile
     env_file:
       - .env
+    networks:
+      - db-network
 
   db:
-    image: postgres:12.0-alpine
-    env_file:
-      - .env
+    image: postgres
+    environment:
+      POSTGRES_USER: owner_aio_bot
+      POSTGRES_PASSWORD: some_password
+      POSTGRES_DB: aiopg_bot
     networks:
       - api-network
       - db-network

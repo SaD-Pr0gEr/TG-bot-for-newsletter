@@ -1,4 +1,3 @@
-from sqlalchemy import and_
 from sqlalchemy.orm import sessionmaker
 from database.models import engine, Subscribers
 
