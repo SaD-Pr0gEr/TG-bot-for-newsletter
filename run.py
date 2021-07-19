@@ -79,5 +79,5 @@ async def send_news(sleep_time):
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    loop.create_task(send_news(9000))
+    loop.create_task(send_news(16000))
     executor.start_polling(dp)
