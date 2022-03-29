@@ -12,7 +12,6 @@ logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
-
 DB = DbManager()
 
 
