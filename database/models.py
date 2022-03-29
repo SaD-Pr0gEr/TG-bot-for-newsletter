@@ -7,6 +7,7 @@ from config import DATABASE_URL
 
 
 engine = create_engine(DATABASE_URL)
+# engine = create_engine(f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}")
 
 BASE = declarative_base()
 
