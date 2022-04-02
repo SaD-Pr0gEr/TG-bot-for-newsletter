@@ -26,3 +26,9 @@ async def all_users(message: types.Message):
     for user in get:
         get_user = await bot.get_chat_member(user.user_id, message.from_user.id)
         await message.answer(f"@{get_user['user']['username'] or get_user['user']['id']}")
+
+
+@dp.message_handler(Command("reset_data", prefixes="!/"), IsPrivate(), IsAdmin())
+async def reset_data(message: types.Message):
+    DB.reset_data()
+    await message.answer("Данные успешно сброшены")

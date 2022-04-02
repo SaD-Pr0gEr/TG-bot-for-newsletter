@@ -10,4 +10,5 @@ async def set_default_commands(dp: Dispatcher):
         BotCommand("news", "Все новости"),
         BotCommand("allusers", "Все пользователи"),
         BotCommand("subscribers", "Все подписчики на рассылку"),
+        BotCommand("reset_data", "Сброс данных")
     ])
