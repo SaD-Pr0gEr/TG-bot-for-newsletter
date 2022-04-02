@@ -1,9 +1,16 @@
-from parsers import parse_news
-from run import bot, DB
+from loader import DB, bot
+from parsers.parse_news import ParseBleacherReport
 
 
-async def notification():
-    get_news = parse_news.parse_news_bleacher_report()[-1]
+async def news_notification():
+    get_new = ParseBleacherReport().parse_posts()[-1]
     get_all_users = DB.get_all_subscribers()
     for users in get_all_users:
-        await bot.send_message(users.user_id, f"{get_news['post_title']}: {get_news['link']} \n\nИсточник: {get_news['proof']}")
+        text = [
+            f"{get_new['post_title']}: {get_new['link']}\n",
+            f"Источник: {get_new['proof']}"
+        ]
+        await bot.send_message(
+            users.user_id,
+            f"\n".join(text)
+        )

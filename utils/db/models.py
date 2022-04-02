@@ -1,14 +1,10 @@
+from sqlalchemy import create_engine, Column, Integer, Boolean
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Integer, Boolean, Column
-import sys
-sys.path.append("../")
-from config import DATABASE_URL
-# from config import USER, PASSWORD, DB, HOST, PORT
+
+from data.config import DATABASE_URL
 
 
 engine = create_engine(DATABASE_URL)
-# engine = create_engine(f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}")
-
 BASE = declarative_base()
 
 
