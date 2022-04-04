@@ -55,4 +55,5 @@ class DbManager:
         Session = sessionmaker(bind=create_engine(self.db_url))
         session = Session()
         session.query(Subscribers).delete()
+        session.commit()
         return True
