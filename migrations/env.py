@@ -1,4 +1,3 @@
-import os
 from logging.config import fileConfig
 
 from alembic import context
@@ -14,9 +13,11 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 from utils.db.models import BASE
+from data.config import BASE_DIR, DATABASE_URL
 import sys
 
-# sys.path.append("..")
+sys.path.append(BASE_DIR)
+
 target_metadata = BASE.metadata
 
 
@@ -32,9 +33,8 @@ def run_migrations_offline():
     script output.
 
     """
-    url = os.getenv("DATABASE_URL")
     context.configure(
-        url=url,
+        url=DATABASE_URL,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -51,8 +51,15 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
+    def process_revision_directives(context, revision, directives):
+        if config.cmd_opts.autogenerate:
+            script = directives[0]
+            if script.upgrade_ops.is_empty():
+                directives[:] = []
+                print('No changes detected.')
+
     conf = config.get_section(config.config_ini_section)
-    conf['sqlalchemy.url'] = os.getenv("DATABASE_URL")
+    conf['sqlalchemy.url'] = DATABASE_URL
     connectable = engine_from_config(
         conf,
         prefix="sqlalchemy.",
@@ -61,7 +68,10 @@ def run_migrations_online():
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+            process_revision_directives=process_revision_directives
         )
 
         with context.begin_transaction():
