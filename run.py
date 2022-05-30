@@ -61,3 +61,6 @@ if __name__ == '__main__':
         main()
     except (KeyboardInterrupt, SystemExit):
         logger.error("Bot stopped!")
+    except Exception as e:
+        logger.error(f"Bot stopped with error {e}")
+        db.pop_bind().close()
