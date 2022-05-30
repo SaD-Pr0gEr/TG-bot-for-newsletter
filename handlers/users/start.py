@@ -6,7 +6,7 @@ from loader import dp, DB
 
 
 @dp.message_handler(Command("start", prefixes="!/"), IsPrivate())
-async def start(message: types.Message):
+async def start(message: types.Message) -> None:
     if not DB.retrieve_user(message.from_user.id):
         DB.add_user(user_id=message.from_user.id, status=False)
     await message.answer(f'Привет, {message.from_user.first_name}! '

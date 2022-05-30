@@ -7,7 +7,7 @@ from loader import dp, DB, bot
 
 
 @dp.message_handler(Command("subscribers", prefixes="!/"), IsPrivate(), IsAdmin())
-async def all_subscribers(message: types.Message):
+async def all_subscribers(message: types.Message) -> None:
     get = DB.get_all_subscribers()
     if not get:
         await message.answer("Подписчиков нет)")
@@ -18,7 +18,7 @@ async def all_subscribers(message: types.Message):
 
 
 @dp.message_handler(Command("allusers", prefixes="!/"), IsPrivate(), IsAdmin())
-async def all_users(message: types.Message):
+async def all_users(message: types.Message) -> None:
     get = DB.get_all_users()
     if not get:
         await message.answer("Пользователей нет)")
@@ -29,6 +29,6 @@ async def all_users(message: types.Message):
 
 
 @dp.message_handler(Command("reset_data", prefixes="!/"), IsPrivate(), IsAdmin())
-async def reset_data(message: types.Message):
+async def reset_data(message: types.Message) -> None:
     DB.reset_data()
     await message.answer("Данные успешно сброшены")

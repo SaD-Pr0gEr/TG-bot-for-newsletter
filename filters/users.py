@@ -1,10 +1,10 @@
 from aiogram.dispatcher.filters import BoundFilter
 from aiogram.types import Message
 
-from data.config import ADMIN_ID
+from data.config import ADMINS
 
 
 class IsAdmin(BoundFilter):
 
     async def check(self, message: Message) -> bool:
-        return int(message.from_user.id) == int(ADMIN_ID)
+        return int(message.from_user.id) in list(map(int, ADMINS))

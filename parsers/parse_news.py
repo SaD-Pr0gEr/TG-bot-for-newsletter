@@ -5,11 +5,11 @@ from utils.request import RequestManager
 class ParseBleacherReport(RequestManager):
     """Парсер сайта bleacher report"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.__url = "https://bleacherreport.com/boston-celtics"
         self.source_site = f'{self.__url.split("//")[0]}//{self.__url.split("//")[1].split("/")[0]}'
 
-    def parse_posts(self):
+    def parse_posts(self) -> list:
         get_content = self.get(self.__url)
         soup = BeautifulSoup(get_content.content, "html.parser")
         posts = soup.find_all("li", class_="cell articleSummary")

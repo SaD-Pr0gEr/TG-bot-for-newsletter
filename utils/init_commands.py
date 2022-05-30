@@ -2,7 +2,7 @@ from aiogram import Dispatcher
 from aiogram.types import BotCommand
 
 
-async def set_default_commands(dp: Dispatcher):
+async def set_default_commands(dp: Dispatcher) -> None:
     await dp.bot.set_my_commands([
         BotCommand("start", "Старт"),
         BotCommand("subscribe", "Подписка на рассылку"),

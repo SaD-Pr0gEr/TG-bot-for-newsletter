@@ -6,7 +6,7 @@ from utils.db.models import Subscribers
 
 class DbManager:
 
-    def __init__(self, db_url):
+    def __init__(self, db_url) -> None:
         self.db_url = db_url
         self.session = sessionmaker(bind=create_engine(self.db_url))
 

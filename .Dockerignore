@@ -1,5 +1,9 @@
 .idea/
-__pycache__
+__pycache__/
 .gitignore
 .git
 venv/
+Dockerfile
+docker-compose.yml
+README.md
+.github/

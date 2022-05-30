@@ -141,5 +141,5 @@ dmypy.json
 cython_debug/
 media/
 dump.rdb
-app.db
+*.db
 todo.py

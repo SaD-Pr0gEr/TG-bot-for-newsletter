@@ -7,7 +7,7 @@ from loader import dp, DB
 
 
 @dp.message_handler(Command("subscribe", prefixes="!/"), IsPrivate(), IsNotSubscribed())
-async def subscribe(message: types.Message):
+async def subscribe(message: types.Message) -> None:
     check_user = DB.retrieve_user(message.from_user.id)
     if check_user:
         DB.set_status(user_id=message.from_user.id, status=True)
@@ -17,6 +17,6 @@ async def subscribe(message: types.Message):
 
 
 @dp.message_handler(Command("unsubscribe", prefixes="!/"), IsPrivate(), IsSubscribed())
-async def unsubscribe(message: types.Message):
+async def unsubscribe(message: types.Message) -> None:
     DB.set_status(message.from_user.id, False)
     await message.answer(f"Вы успешно отписались {message.from_user.first_name})")

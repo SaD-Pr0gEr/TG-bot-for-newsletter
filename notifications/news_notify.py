@@ -2,7 +2,7 @@ from loader import DB, bot
 from parsers.parse_news import ParseBleacherReport
 
 
-async def news_notification():
+async def news_notification() -> None:
     get_new = ParseBleacherReport().parse_posts()[-1]
     get_all_users = DB.get_all_subscribers()
     for users in get_all_users:

@@ -7,8 +7,11 @@ from parsers.parse_news import ParseBleacherReport
 
 
 @dp.message_handler(Command("news", prefixes="!/"), IsPrivate())
-async def news(message: types.Message):
+async def news(message: types.Message) -> None:
     parse = ParseBleacherReport().parse_posts()
+    if not parse:
+        await message.answer("Новостей пока нет)")
+        return
     for i in parse:
         text = [
             f"{i['post_title']}: {i['link']}\n",
