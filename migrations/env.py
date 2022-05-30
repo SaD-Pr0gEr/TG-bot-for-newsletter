@@ -2,6 +2,7 @@ from logging.config import fileConfig
 
 from alembic import context
 from dotenv import load_dotenv
+from environs import Env
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -12,14 +13,16 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-from utils.db.models import BASE
-from data.config import BASE_DIR, DATABASE_URL
+from main_bot.models.models import db
+from main_bot.config import BASE_DIR
 import sys
 
 sys.path.append(BASE_DIR)
 
-target_metadata = BASE.metadata
-
+target_metadata = db
+env = Env()
+env.read_env(BASE_DIR / ".env")
+DATABASE_URL = f"postgresql://{env.str('DB_USER')}:{env.str('DB_PASS')}@{env.str('DB_HOST')}:5432/{env.str('DB_NAME')}"
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.

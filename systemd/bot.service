@@ -1,0 +1,14 @@
+[Unit]
+Description=Course Bot
+After=network.target
+
+[Service]
+User=user
+Group=group
+Type=simple
+WorkingDirectory=/bot/path
+ExecStart=/path/to/python/python bot.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,10 +1,12 @@
-from loader import DB, bot
-from parsers.parse_news import ParseBleacherReport
+from aiogram import Bot
+
+from main_bot.misc.parse_news import ParseBleacherReport
+from main_bot.models.models import Users
 
 
-async def news_notification() -> None:
+async def news_notification(bot: Bot) -> None:
     get_new = ParseBleacherReport().parse_posts()[-1]
-    get_all_users = DB.get_all_subscribers()
+    get_all_users = await Users.all_subscribers()
     for users in get_all_users:
         text = [
             f"{get_new['post_title']}: {get_new['link']}\n",

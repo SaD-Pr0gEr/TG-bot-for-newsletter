@@ -1,12 +1,9 @@
-from aiogram import types
-from aiogram.dispatcher.filters import Command
+from aiogram import types, Dispatcher
 
-from filters.private_chat import IsPrivate
-from loader import dp
-from parsers.parse_news import ParseBleacherReport
+from main_bot.filters.private_chat import IsPrivate
+from main_bot.misc.parse_news import ParseBleacherReport
 
 
-@dp.message_handler(Command("news", prefixes="!/"), IsPrivate())
 async def news(message: types.Message) -> None:
     parse = ParseBleacherReport().parse_posts()
     if not parse:
@@ -18,3 +15,7 @@ async def news(message: types.Message) -> None:
             f"Источник: {i['proof']}"
         ]
         await message.answer("\n".join(text))
+
+
+def register_news_handlers(dispatcher: Dispatcher):
+    dispatcher.register_message_handler(news, IsPrivate(), commands=["news"], commands_prefix="!/", state="*")

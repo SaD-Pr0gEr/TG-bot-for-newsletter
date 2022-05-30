@@ -1,26 +1,31 @@
-version: "3"
+version: '3.3'
+
 services:
-  api:
-    depends_on:
-      - db
-    image: newsletter-aiogram_api
+  bot:
+    image: "${BOT_IMAGE_NAME:-tg_bot-image}"
+    container_name: "${BOT_CONTAINER_NAME:-tg_bot-container}"
+    stop_signal: SIGINT
     build:
       context: .
-      dockerfile: Dockerfile
+    working_dir: "/usr/src/app/${BOT_NAME:-tg_bot}"
+    volumes:
+      - .:/usr/src/app/${BOT_NAME:-tg_bot}
+    command: python3 -m bot
+    restart: always
     env_file:
-      - .env
+      - ".env"
     networks:
-      - db-network
+      - tg_bot
 
   db:
     image: postgres
     environment:
-      POSTGRES_USER: owner_aio_bot
-      POSTGRES_PASSWORD: some_password
-      POSTGRES_DB: aiopg_bot
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${PG_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
     networks:
-      - api-network
-      - db-network
+      - tg_bot
+
 networks:
-  api-network:
-  db-network:
+  tg_bot:
+    driver: bridge

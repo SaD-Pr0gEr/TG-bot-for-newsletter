@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from utils.request import RequestManager
+from main_bot.services.request import RequestManager
 
 
 class ParseBleacherReport(RequestManager):
