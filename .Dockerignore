@@ -1,9 +1,11 @@
 .idea/
 __pycache__/
 .gitignore
-.git
+.git/
 venv/
 Dockerfile
 docker-compose.yml
 README.md
 .github/
+*.db
+*.log
