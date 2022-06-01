@@ -11,7 +11,7 @@ class ParseBleacherReport(RequestManager):
 
     def parse_posts(self) -> list:
         get_content = self.get(self.__url)
-        soup = BeautifulSoup(get_content.content, "html.parser")
+        soup = BeautifulSoup(get_content.text, "html.parser")
         posts = soup.find_all("li", class_="cell articleSummary")
         posts_list = []
         for post in posts:
