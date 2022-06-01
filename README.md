@@ -1,36 +1,29 @@
-# Бот для рассылки новостей команды Boston Celtics
-Этот бот ежедневно выводит новости тем кто подписаны на рассылку! 
-Пользователи могут подписаться или отписаться от рассылки.
+# Bot for parse news and notify users
+Bot parses news about Boston Celtics and sends it to users that subscribed to mailing
+Users can subscribe/unsubscribe to mailing.
 
-## Что надо знать 
+## Project Libs
 * Python
 * aiogram
-* SQLAlchemy
+* Gino
 * BeautifulSoup
 * PostgreSQL
 * Docker(docker-compose)
 
-## Как работать с проектом
-1. Прежде всего установите зависимости с командой `pip install -r requirements.txt`
-2. Создайте и настройте файл .env в корневом каталоге с переменными 
-3. ```
-   BOTS_TOKEN - токен бота,
-   DATABASE_URL - URL до БД
-   ADMIN_ID - идентификатор админа(или chat_id админа) 
-   **ВНИМАНИЕ!** когда запускаете проект в Docker не забудьте менять хост с `localhost` на db (имя хоста контейнера для БД в файле docker-compose)
-   ```
-4. Создайте моделей в БД с помощью команды `
+## Install and Run
+1. `git clone https://github.com/SaD-Pr0gEr/TG-bot-for-newsletter.git`
+2. `pip install -r requirements.txt`
+3. Apply migrations`
    alembic upgrade head
    `
-5. Просто запускайте файл `run.py` и наслаждайтесь)
+6. `python3 run.py`
 
-## Справка по Alembic
-* Чтобы создать миграции просто пишите `alembic revision --autogenerate -m 'Название миграции'`
-* Чтобы их применить пишите `alembic upgrade head`
+## Alembic
+* Create migrations `alembic revision --autogenerate -m 'migration name'`
+* Apply migration `alembic upgrade head`
 
-## Работа с Docker 
-1. Для развёртывания проекта на Docker сначала наберите команду `docker compose build`
-2. После наберите команду `Docker compose up` и заменит хост с localhost на bd
-3. Войдите в баш консоль контейнера для api с командой `docker exec -it container_name bash`
-4. Внутри консоли наберите команду `python database/models.py` чтобы создать таблицу в БД
-5. Просто выйдите из консоли и наслаждайтесь ботом)
+## Docker 
+1. Build `docker compose build`
+2. Up `Docker compose up`
+3. Enter into container `docker exec -it container_name bash`
+4. run `alembic upgrade head` or write it on docker-compose.yml as command
