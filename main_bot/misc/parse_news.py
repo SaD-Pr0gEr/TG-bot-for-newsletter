@@ -7,15 +7,20 @@ class ParseBleacherReport(RequestManager):
 
     def __init__(self) -> None:
         self.__url = "https://bleacherreport.com/boston-celtics"
-        self.source_site = f'{self.__url.split("//")[0]}//{self.__url.split("//")[1].split("/")[0]}'
+        self.source_site = f'' \
+                           f'{self.__url.split("//")[0]}//' \
+                           f'{self.__url.split("//")[1].split("/")[0]}'
 
     def parse_posts(self) -> list:
         get_content = self.get(self.__url)
         soup = BeautifulSoup(get_content.text, "html.parser")
-        posts = soup.find_all("li", class_="cell articleSummary")
+        posts = soup.find_all("li", class_="articleSummary")
         posts_list = []
         for post in posts:
-            post_link = post.find("div", class_="articleContent").find("a", class_="atom articleTitle lowerMargin")
+            post_link = post.find(
+                "div",
+                class_="articleContent"
+            ).find("a", class_="atom")
             post_name = post.find('div', class_="articleContent").text
             if post_link:
                 get_link = post_link.get("href")

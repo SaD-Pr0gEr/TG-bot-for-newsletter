@@ -19,7 +19,7 @@ class Users(db.Model, BaseModelMixin):
 
     @classmethod
     async def all_subscribers(cls) -> list:
-        return await cls.query.where(cls.is_subscribed == True).gino.all()
+        return await cls.query.where(cls.is_subscribed.is_(True)).gino.all()
 
     @classmethod
     async def set_status(cls, user_id: int, status: bool) -> None:

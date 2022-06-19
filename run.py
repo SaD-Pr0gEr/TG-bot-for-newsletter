@@ -21,7 +21,10 @@ logger = logging.getLogger(__name__)
 async def on_startup(dispatcher: Dispatcher):
     try:
         config = dispatcher.bot.get('config')
-        await db.set_bind(f"postgresql://{config.db.user}:{config.db.password}@{config.db.host}:5432/{config.db.database}")
+        await db.set_bind(
+            f"postgresql://{config.db.user}:{config.db.password}"
+            f"@{config.db.host}:5432/{config.db.database}"
+        )
         await set_default_commands(dispatcher)
     except Exception as e:
         print(e)
@@ -38,7 +41,9 @@ def register_all_handlers(dp):
 def main():
     logging.basicConfig(
         level=logging.INFO,
-        format=u'%(filename)s:%(lineno)d #%(levelname)-8s [%(asctime)s] - %(name)s - %(message)s',
+        format=u'%(filename)s:%(lineno)d '
+               u'#%(levelname)-8s [%(asctime)s] '
+               u'- %(name)s - %(message)s',
     )
     logger.info("Starting bot")
     config = load_config(".env")

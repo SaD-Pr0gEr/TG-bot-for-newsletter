@@ -18,4 +18,10 @@ async def news(message: types.Message) -> None:
 
 
 def register_news_handlers(dispatcher: Dispatcher):
-    dispatcher.register_message_handler(news, IsPrivate(), commands=["news"], commands_prefix="!/", state="*")
+    dispatcher.register_message_handler(
+        news,
+        IsPrivate(),
+        commands=["news"],
+        commands_prefix="!/",
+        state="*"
+    )

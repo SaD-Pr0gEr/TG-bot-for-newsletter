@@ -11,8 +11,9 @@ async def all_subscribers(message: types.Message) -> None:
         await message.answer("Подписчиков нет)")
         return
     for user in get:
-        get_user = await message.bot.get_chat_member(user.user_id, message.from_user.id)
-        await message.answer(f"@{get_user['user']['username'] or get_user['user']['id']}")
+        await message.answer(
+            f"User ID: {user.user_id}"
+        )
 
 
 async def all_users(message: types.Message) -> None:
@@ -21,8 +22,9 @@ async def all_users(message: types.Message) -> None:
         await message.answer("Пользователей нет)")
         return
     for user in get:
-        get_user = await message.bot.get_chat_member(user.user_id, message.from_user.id)
-        await message.answer(f"@{get_user['user']['username'] or get_user['user']['id']}")
+        await message.answer(
+            f"User ID: {user.user_id}"
+        )
 
 
 async def reset_data(message: types.Message) -> None:
@@ -31,6 +33,27 @@ async def reset_data(message: types.Message) -> None:
 
 
 def register_admin_handlers(dispatcher: Dispatcher):
-    dispatcher.register_message_handler(all_subscribers, IsPrivate(), IsAdmin(), commands=["subscribers"], commands_prefix="!/", state="*")
-    dispatcher.register_message_handler(all_users, IsPrivate(), IsAdmin(), commands=["allusers"], commands_prefix="!/", state="*")
-    dispatcher.register_message_handler(reset_data, IsPrivate(), IsAdmin(), commands=["reset_data"], commands_prefix="!/", state="*")
+    dispatcher.register_message_handler(
+        all_subscribers,
+        IsPrivate(),
+        IsAdmin(),
+        commands=["subscribers"],
+        commands_prefix="!/",
+        state="*"
+    )
+    dispatcher.register_message_handler(
+        all_users,
+        IsPrivate(),
+        IsAdmin(),
+        commands=["allusers"],
+        commands_prefix="!/",
+        state="*"
+    )
+    dispatcher.register_message_handler(
+        reset_data,
+        IsPrivate(),
+        IsAdmin(),
+        commands=["reset_data"],
+        commands_prefix="!/",
+        state="*"
+    )

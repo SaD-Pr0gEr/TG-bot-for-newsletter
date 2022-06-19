@@ -14,5 +14,5 @@ async def news_notification(bot: Bot) -> None:
         ]
         await bot.send_message(
             users.user_id,
-            f"\n".join(text)
+            "\n".join(text)
         )
