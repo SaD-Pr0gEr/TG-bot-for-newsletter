@@ -24,3 +24,4 @@ yarl==1.6.3
 alembic~=1.7.7
 environs~=9.5.0
 gino~=1.0.1
+flake8
